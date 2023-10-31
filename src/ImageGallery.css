@@ -1,0 +1,93 @@
+.image-gallery {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ffffff;
+}
+
+.selected-count {
+  position: absolute;
+  top: 20px;
+  left: 460px;
+  font-size: 20px;
+}
+
+.delete-button{
+  position:fixed;
+  top: 20px;
+  right: 460px;
+  font-size: 20px;
+  color: #31b819;
+}
+
+.App {
+  max-width: 1024px;
+  margin: 50px auto;
+}
+
+.image {
+  border: 1px solid #c2bebe;
+  position: relative;
+  transition: border 0.3s ease-in-out; /* Add a transition effect for border */
+  border-radius: 8px;
+}
+
+.image:hover input {
+  display: block;
+}
+
+.item1 {
+  grid-row: 1/3;
+  grid-column: 1/3;
+}
+
+/* .featured {
+    grid-column: span 2; /* Larger featured image spanning 2 columns
+  } */
+
+.selected {
+  border: 4px solid #31b819; /* Highlight selected images with a border */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.image-actions > input {
+  position: absolute;
+  top: 12px;
+  display: none;
+}
+
+.image.featured {
+  transform: scale(1.1); /* Add a scale transform */
+  transition: transform 0.3s ease-in-out; /* Add a transition for scaling */
+}
+
+.image.selected {
+  opacity: 0.6; /* Add a reduced opacity for selected images */
+  transition: opacity 0.3s ease-in-out; /* Add a transition for opacity */
+}
+
+.image.deleted {
+  animation: slide-out 0.3s ease-in-out;
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
