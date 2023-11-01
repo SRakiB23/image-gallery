@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import React, { useState } from "react";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-const ItemType = 'IMAGE';
+const ItemType = "IMAGE";
 
-const Image = ({ image, index, moveImage, isSelected, selectImage, featureImage, setFeatureImage }) => {
+const Image = ({
+  image,
+  index,
+  moveImage,
+  isSelected,
+  selectImage,
+  featureImage,
+  setFeatureImage,
+}) => {
   const [, ref] = useDrag({
     type: ItemType,
     item: { index },
@@ -21,10 +29,22 @@ const Image = ({ image, index, moveImage, isSelected, selectImage, featureImage,
   });
 
   return (
-    <div ref={(node) => ref(drop(node))} className={`${index === 0 ? 'item1 image' : 'image'} ${isSelected ? 'selected' : ''}`}>
-      <img src={image} alt={`Image ${index}`} />
+    <div
+      ref={(node) => ref(drop(node))}
+      className={`${index === 0 ? "item1 image" : "image"} ${
+        isSelected ? "selected" : ""
+      }`}
+    >
+      <div className="img-container">
+        <img src={image} alt={`Image ${index}`} />
+      </div>
+     
       <div className="image-actions">
-        <input type="checkbox" checked={isSelected} onChange={() => selectImage(index)} />
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={() => selectImage(index)}
+        />
       </div>
     </div>
   );
@@ -44,41 +64,57 @@ const ImageGallery = ({ images }) => {
 
   const selectImage = (index) => {
     if (selectedImages.includes(index)) {
-      setSelectedImages(selectedImages.filter((selected) => selected !== index));
+      setSelectedImages(
+        selectedImages.filter((selected) => selected !== index)
+      );
     } else {
       setSelectedImages([...selectedImages, index]);
     }
   };
 
   const deleteSelectedImages = () => {
-    const updatedImages = galleryImages.filter((_, index) => !selectedImages.includes(index));
+    const updatedImages = galleryImages.filter(
+      (_, index) => !selectedImages.includes(index)
+    );
     setGalleryImages(updatedImages);
     setSelectedImages([]);
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="image-gallery">
-        <div className="selected-count">
-          Selected Images: {selectedImages.length}
+    <div>
+      <div className="selected-count">
+      {selectedImages.length ? (
+        <div >
+          <input type="checkbox" checked="checked"></input>
+          {selectedImages.length} Files Selected
         </div>
-        {galleryImages.map((image, index) => (
-          <Image
-            key={index}
-            image={image}
-            index={index}
-            moveImage={moveImage}
-            isSelected={selectedImages.includes(index)}
-            selectImage={selectImage}
-            featureImage={featureImage}
-            setFeatureImage={setFeatureImage}
-          />
-        ))}
+      ) : null}
+      {selectedImages.length ? (
+        <div>
+          <button  className="delete-button" onClick={deleteSelectedImages}>
+            Delete files
+          </button>
+        </div>
+      ) : null}
       </div>
-      <div className="delete-button">
-      <button onClick={deleteSelectedImages}>Delete Selected Images</button>
-      </div>
-    </DndProvider>
+      
+      <DndProvider backend={HTML5Backend}>
+        <div className="image-gallery">
+          {galleryImages.map((image, index) => (
+            <Image
+              key={index}
+              image={image}
+              index={index}
+              moveImage={moveImage}
+              isSelected={selectedImages.includes(index)}
+              selectImage={selectImage}
+              featureImage={featureImage}
+              setFeatureImage={setFeatureImage}
+            />
+          ))}
+        </div>
+      </DndProvider>
+    </div>
   );
 };
 
