@@ -16,8 +16,6 @@ function App() {
     '/assets/image-8.webp',
     '/assets/image-9.webp',
     '/assets/image-10.jpeg',
-
-
   ];
 
   return (
