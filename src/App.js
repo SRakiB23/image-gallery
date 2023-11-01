@@ -1,6 +1,5 @@
 // src/App.js
 import React from 'react';
-import './App.css';
 import './ImageGallery.css';
 import ImageGallery from './ImageGallery';
 
